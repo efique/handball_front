@@ -59,9 +59,9 @@
               <option [ngValue]="null" disabled selected>
                 Choisir un rôle
               </option>
-              <option *ngFor="let role of roles" [ngValue]="role.label">
-                {{ role.name }}
-              </option>
+              @for (role of roles; track role) {
+              <option [ngValue]="role.label">{{ role.name }}</option>
+              }
             </select>
           </div>
         </div>

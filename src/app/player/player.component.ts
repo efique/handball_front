@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { PlayerService } from './player.service';
+import { PlayerService } from '../services/player.service';
 import { Player } from '../interfaces/player';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 })
 export class PlayerComponent {
   players: Player[] = [];
-  playerService: PlayerService = inject(PlayerService);
 
   playerForm = new FormGroup({
     firstName: new FormControl(''),
@@ -26,7 +25,7 @@ export class PlayerComponent {
     { label: 'keeper', name: 'Gardien' },
   ];
 
-  constructor() {}
+  constructor(private playerService: PlayerService) {}
 
   // ngOnInit() {
   //   this.playerService.getAllPlayers().subscribe((data) => console.log(data));

@@ -1,5 +1,8 @@
 <main class="main">
-  <app-navbar></app-navbar>
+  <app-navbar
+    (changed)="changeIsLoggedIn()"
+    [isLoggedIn]="isLoggedIn"
+  ></app-navbar>
 </main>
 
-<router-outlet />
+<router-outlet (activate)="onActivate($event)" />

@@ -53,9 +53,21 @@
       </button>
     </div>
     <div class="hidden lg:flex">
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900 pointer"
-        ><i class="fa-solid text-white fa-arrow-right-to-bracket"></i
-      ></a>
+      @if (isLoggedIn) {
+      <i
+        class="fa-solid fa-circle-left pointer"
+        style="color: #f50000"
+        (click)="submitLogout()"
+      ></i>
+      } @else {
+      <a
+        routerLink="/login"
+        class="text-sm font-semibold leading-6 text-gray-900 pointer"
+        ><i
+          class="fa-solid fa-circle-arrow-right"
+          style="color: #2fd719"
+        ></i></a
+      >}
     </div>
   </nav>
 
