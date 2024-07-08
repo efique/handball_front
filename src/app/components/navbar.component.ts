@@ -7,8 +7,8 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  templateUrl: '../html/navbar.component.html',
+  styleUrl: '../css/navbar.component.css',
 })
 export class NavbarComponent {
   @Input() currentLoggedIn = false;

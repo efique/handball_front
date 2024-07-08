@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-match',
   standalone: true,
   imports: [],
-  templateUrl: './match.component.html',
-  styleUrl: './match.component.css'
+  templateUrl: '../html/match.component.html',
+  styleUrl: '../css/match.component.css',
 })
-export class MatchComponent {
-
-}
+export class MatchComponent {}

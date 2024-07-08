@@ -7,8 +7,8 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-auth',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.css',
+  templateUrl: '../html/auth.component.html',
+  styleUrl: '../css/auth.component.css',
 })
 export class AuthComponent {
   loginForm = new FormGroup({

@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './components/home.component';
+import { NavbarComponent } from './components/navbar.component';
 import { AuthService } from './services/auth.service';
 import { NavBarService } from './services/navbar.service';
 

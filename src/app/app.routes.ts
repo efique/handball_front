@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { PlayerComponent } from './player/player.component';
-import { TeamComponent } from './team/team.component';
-import { MatchComponent } from './match/match.component';
-import { SeasonComponent } from './season/season.component';
-import { NotfoundComponent } from './notfound/notfound.component';
-import { AuthComponent } from './auth/auth.component';
+import { HomeComponent } from './components/home.component';
+import { PlayerComponent } from './components/player.component';
+import { TeamComponent } from './components/team.component';
+import { MatchComponent } from './components/match.component';
+import { SeasonComponent } from './components/season.component';
+import { NotfoundComponent } from './components/notfound.component';
+import { AuthComponent } from './components/auth.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [

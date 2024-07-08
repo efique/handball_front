@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-player',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './player.component.html',
-  styleUrl: './player.component.css',
+  templateUrl: '../html/player.component.html',
+  styleUrl: '../css/player.component.css',
 })
 export class PlayerComponent {
   players: Player[] = [];
