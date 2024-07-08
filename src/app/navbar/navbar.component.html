@@ -7,6 +7,7 @@
       <a routerLink="/" class="-m-1.5 p-1.5 pointer">
         <i class="fa-solid text-white fa-house"></i>
       </a>
+      @if (currentLoggedIn) {
       <div class="hidden lg:flex lg:gap-x-12">
         <a
           routerLink="/player"
@@ -29,6 +30,7 @@
           ><i class="fa-solid text-white fa-ranking-star"></i
         ></a>
       </div>
+      }
     </div>
     <div class="flex lg:hidden">
       <button
@@ -53,7 +55,7 @@
       </button>
     </div>
     <div class="hidden lg:flex">
-      @if (isLoggedIn) {
+      @if (currentLoggedIn) {
       <i
         class="fa-solid fa-circle-left pointer"
         style="color: #f50000"

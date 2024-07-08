@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import moment from 'moment';
 import { ApiService } from './api.service';
-import { CookieService } from 'ngx-cookie-service';
+import { NavBarService } from './navbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +11,8 @@ export class AuthService {
   constructor(
     private apiService: ApiService,
     private toastr: ToastrService,
-    private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private navbarService: NavBarService
   ) {}
 
   login(username: string, password: string) {
@@ -25,7 +24,7 @@ export class AuthService {
             'Succes!',
             'Connexion réussie, bienvenue ' + username
           );
-          localStorage.setItem('user', JSON.stringify(data.user));
+          this.navbarService.isLoggedIn.next(true);
           this.router.navigate(['/home']);
         },
         error: (err) => {
@@ -42,7 +41,7 @@ export class AuthService {
     return this.apiService.get('/auth/logout').subscribe({
       next: (data) => {
         this.toastr.success('Succes!', 'Vous avez été déconnecté'),
-          localStorage.removeItem('user');
+          this.navbarService.isLoggedIn.next(false);
         this.router.navigate(['/home']);
       },
       error: (err) => {
@@ -53,5 +52,13 @@ export class AuthService {
           console.error(err);
       },
     });
+  }
+
+  isAuthenticated(): any {
+    return this.apiService.get('/auth/profile');
+  }
+
+  refreshCookies() {
+    return this.apiService.get('/auth/refresh');
   }
 }

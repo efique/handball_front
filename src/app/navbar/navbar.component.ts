@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NavBarService } from '../services/navbar.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,17 +11,20 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  @Input() isLoggedIn = false;
+  @Input() currentLoggedIn = false;
 
-  @Output() changed = new EventEmitter();
+  constructor(
+    private navbarService: NavBarService,
+    private authService: AuthService
+  ) {}
 
-  constructor(private authService: AuthService) {}
-
-  changeIsLoggedIn() {
-    this.isLoggedIn = !this.isLoggedIn;
+  ngOnInit(): void {
+    this.navbarService.currentLoggedIn.subscribe(
+      (isLoggedIn) => (this.currentLoggedIn = isLoggedIn)
+    );
   }
 
   submitLogout() {
-    this.authService.logout().add(() => this.changed.emit());
+    this.authService.logout();
   }
 }

@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CookieService } from 'ngx-cookie-service';
-import { DOCUMENT } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import { NavBarService } from './services/navbar.service';
 
 @Component({
   selector: 'app-root',
@@ -20,26 +20,15 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AppComponent {
   title = 'homes';
-  isLoggedIn = false;
-  user: any = '';
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
-    const localStorage = document.defaultView?.localStorage;
-    if (localStorage) {
-      this.user = localStorage.getItem('user');
-      this.isLoggedIn = JSON.parse(this.user) ? true : false;
-    }
-  }
+  constructor(
+    private authService: AuthService,
+    private navbarService: NavBarService
+  ) {}
 
-  changeIsLoggedIn() {
-    this.isLoggedIn = !this.isLoggedIn;
-  }
-
-  onActivate(componentRef: any) {
-    if (componentRef.constructor.name == '_AuthComponent') {
-      componentRef.changed.subscribe((res: any) => {
-        this.changeIsLoggedIn();
-      });
-    }
+  ngOnInit(): void {
+    this.authService.isAuthenticated().subscribe((data: any) => {
+      this.navbarService.isLoggedIn.next(data != null ? true : false);
+    });
   }
 }
