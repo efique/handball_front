@@ -1,23 +1,27 @@
-<form>
+<form [formGroup]="teamForm" (submit)="submitTeam()">
   <div class="space-y-12">
     <div class="border-b border-white/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-white">
-        Création d'un équipe
+        Création d'une équipe
       </h2>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
           <label
-            for="first-name"
+            for="name"
             class="block text-sm font-medium leading-6 text-white"
             >Nom</label
           >
           <div class="mt-2">
             <input
               type="text"
-              name="first-name"
-              id="first-name"
-              autocomplete="given-name"
+              name="name"
+              id="name"
+              autocomplete="name"
+              formControlName="name"
+              [ngClass]="
+                nameError && teamForm.get('name')?.invalid ? 'invalid' : ''
+              "
               class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
           </div>

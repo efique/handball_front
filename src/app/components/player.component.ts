@@ -1,8 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { PlayerService } from '../services/player.service';
 import { Player } from '../interfaces/player';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-player',
@@ -13,29 +19,71 @@ import { CommonModule } from '@angular/common';
 })
 export class PlayerComponent {
   players: Player[] = [];
+  firstNameError = false;
+  lastNameError = false;
+  roleError = false;
 
   playerForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    role: new FormControl(''),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    role: new FormControl('', [Validators.required]),
   });
 
-  roles = [
+  rolesEnum = [
     { label: 'player', name: 'Joueur' },
     { label: 'keeper', name: 'Gardien' },
   ];
 
-  constructor(private playerService: PlayerService) {}
+  constructor(
+    private playerService: PlayerService,
+    private toastr: ToastrService
+  ) {}
 
   // ngOnInit() {
   //   this.playerService.getAllPlayers().subscribe((data) => console.log(data));
   // }
 
   submitPlayer() {
-    this.playerService.submitPlayer(
-      this.playerForm.value.firstName ?? '',
-      this.playerForm.value.lastName ?? '',
-      this.playerForm.value.role ?? ''
-    );
+    this.playerForm.value.firstName == ''
+      ? (this.firstNameError = true)
+      : (this.firstNameError = false);
+
+    this.playerForm.value.lastName == ''
+      ? (this.lastNameError = true)
+      : (this.lastNameError = false);
+
+    this.playerForm.value.role == ''
+      ? (this.roleError = true)
+      : (this.roleError = false);
+
+    if (
+      this.firstNameError == false &&
+      this.lastNameError == false &&
+      this.roleError == false
+    ) {
+      this.playerService
+        .submitPlayer(
+          this.playerForm.value.firstName ?? '',
+          this.playerForm.value.lastName ?? '',
+          this.playerForm.value.role ?? ''
+        )
+        .subscribe({
+          next: (data) => {
+            this.playerForm.reset({
+              firstName: '',
+              lastName: '',
+              role: '',
+            });
+            this.toastr.success('Succes!', 'Le joueur a bien été crée');
+          },
+          error: (err) => {
+            this.toastr.error(
+              'Erreur!',
+              'Une erreur est survenue lors de la création du joueur'
+            ),
+              console.error(err);
+          },
+        });
+    }
   }
 }

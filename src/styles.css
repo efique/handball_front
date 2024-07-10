@@ -194,6 +194,12 @@ button.toast-close-button {
   }
 }
 
+/* FORMS */
+
+.invalid {
+  border: 3px solid #a94442;
+}
+
 /* GLOBAL */
 
 .pointer {
