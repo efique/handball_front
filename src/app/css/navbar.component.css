@@ -1,0 +1,11 @@
+.transvisible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+.transhidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s 0.7s, opacity 0.2s 0.7s linear;
+}

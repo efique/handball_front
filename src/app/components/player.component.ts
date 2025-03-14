@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PlayerService } from '../services/player.service';
 import { Player } from '../interfaces/player';
 import {
@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-player',
@@ -18,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: '../css/player.component.css',
 })
 export class PlayerComponent {
+  @Input() currentPlayerPage = true;
   players: Player[] = [];
   firstNameError = false;
   lastNameError = false;
@@ -36,12 +38,21 @@ export class PlayerComponent {
 
   constructor(
     private playerService: PlayerService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+  ) { }
 
-  // ngOnInit() {
-  //   this.playerService.getAllPlayers().subscribe((data) => console.log(data));
-  // }
+  ngOnInit() {
+    this.playerService.currentPlayerPage.subscribe((isPlayerPage) => {
+      this.currentPlayerPage = isPlayerPage
+      if (!this.currentPlayerPage) {
+        this.playerService.getAllPlayers().subscribe((data) => (this.players = data));
+        // this.players.forEach(element => {
+        //   element.role = this.rolesEnum.find(role=>role.label === element.role)?.name
+        // });
+      }
+    }
+    );
+  }
 
   submitPlayer() {
     this.playerForm.value.firstName == ''

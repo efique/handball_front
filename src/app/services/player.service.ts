@@ -1,17 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
+import { Player } from '../interfaces/player';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerService {
-  // private players: Player[] = [];
+  constructor(private apiService: ApiService) { }
+  isPlayerPage = new BehaviorSubject<boolean>(false);
+  currentPlayerPage = this.isPlayerPage.asObservable();
 
-  constructor(private apiService: ApiService) {}
-
-  // getAllPlayers(): Observable<Player[]> {
-  //   return this.http.get<Player[]>(this.url, { headers: this.headers });
-  // }
+  getAllPlayers() {
+    return this.apiService.get("/players");
+  }
 
   submitPlayer(firstName: string, lastName: string, role: string) {
     return this.apiService.post('/players', {

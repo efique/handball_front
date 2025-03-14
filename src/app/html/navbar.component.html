@@ -1,139 +1,108 @@
 <header class="bg-gray-900">
-  <nav
-    class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-    aria-label="Global"
-  >
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div class="flex items-center gap-x-12">
       <a routerLink="/" class="-m-1.5 p-1.5 pointer">
         <i class="fa-solid text-white fa-house"></i>
       </a>
       @if (currentLoggedIn) {
       <div class="hidden lg:flex lg:gap-x-12">
-        <a
-          routerLink="/player"
-          class="text-sm font-semibold leading-6 text-gray-900 pointer"
-          ><i class="fa-solid text-white fa-user-plus"></i
-        ></a>
-        <a
-          routerLink="/team"
-          class="text-sm font-semibold leading-6 text-gray-900 pointer"
-          ><i class="fa-solid text-white fa-people-group"></i
-        ></a>
-        <a
-          routerLink="/match"
-          class="text-sm font-semibold leading-6 text-gray-900 pointer"
-          ><i class="fa-solid text-white fa-volleyball"></i
-        ></a>
-        <a
-          routerLink="/season"
-          class="text-sm font-semibold leading-6 text-gray-900 pointer"
-          ><i class="fa-solid text-white fa-ranking-star"></i
-        ></a>
+        <div class="relative">
+          <button type="button"
+            class="text-white inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900"
+            aria-expanded="false" (click)="toggleState()" (mouseleave)="onMouseLeave()">
+            <i class="fa-solid text-white fa-user-plus"></i>
+          </button>
+          <div [ngClass]="{ 'transvisible': state, 'transhidden': !state && !toggle, 'hidden': !state && toggle}"
+            class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4"
+            (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+            <div
+              class="w-56 shrink rounded-xl bg-white p-4 text-sm/6 font-semibold text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+              <a routerLink="/player" class="block p-2 hover:text-indigo-600" (click)="addPlayer()"><i
+                  class="fa-solid fa-eye"></i> Voir tous
+                les
+                joueurs</a>
+              <a routerLink="/player" class="block p-2 hover:text-indigo-600" (click)="showPlayer()"><i
+                  class="fa-solid fa-circle-plus"></i>
+                Ajouter un
+                joueur</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <a routerLink="/team" class="text-sm font-semibold leading-6 text-gray-900 pointer"><i
+            class="fa-solid text-white fa-people-group"></i></a>
+        <a routerLink="/match" class="text-sm font-semibold leading-6 text-gray-900 pointer"><i
+            class="fa-solid text-white fa-volleyball"></i></a>
+        <a routerLink="/season" class="text-sm font-semibold leading-6 text-gray-900 pointer"><i
+            class="fa-solid text-white fa-ranking-star"></i></a>
+        <a routerLink="/playerstoteams" class="text-sm font-semibold leading-6 text-gray-900 pointer">
+          <i class="fa-solid text-white fa-user-group"></i></a>
       </div>
       }
     </div>
-    <div class="flex lg:hidden">
-      <button
-        type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-      >
+    <!-- <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
         <span class="sr-only">Open main menu</span>
-        <svg
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
-    </div>
+    </div> -->
     <div class="hidden lg:flex">
       @if (currentLoggedIn) {
-      <i
-        class="fa-solid fa-circle-left pointer"
-        style="color: #f50000"
-        (click)="submitLogout()"
-      ></i>
+      <i class="fa-solid fa-circle-left pointer" style="color: #f50000" (click)="submitLogout()"></i>
       } @else {
-      <a
-        routerLink="/login"
-        class="text-sm font-semibold leading-6 text-gray-900 pointer"
-        ><i
-          class="fa-solid fa-circle-arrow-right"
-          style="color: #2fd719"
-        ></i></a
-      >}
+      <a routerLink="/login" class="text-sm font-semibold leading-6 text-gray-900 pointer"><i
+          class="fa-solid fa-circle-arrow-right" style="color: #2fd719"></i></a>}
     </div>
   </nav>
 
   <!-- Mobile menu, show/hide based on menu open state. -->
-  <div class="lg:hidden" role="dialog" aria-modal="true">
+  <!-- <div class="lg:hidden" role="dialog" aria-modal="true">
     <div class="fixed inset-0 z-10"></div>
     <div
-      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
-    >
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
       <div class="flex items-center justify-between">
         <a routerLink="/" class="-m-1.5 p-1.5 pointer">
           <i class="fa-solid text-white fa-house"></i>
         </a>
         <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
           <span class="sr-only">Close menu</span>
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
-            <a
-              routerLink="/player"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"
-              ><i class="fa-solid text-white fa-user-plus"></i
-            ></a>
-            <a
-              routerLink="/team"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"
-              ><i class="fa-solid text-white fa-people-group"></i
-            ></a>
-            <a
-              routerLink="/match"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"
-              ><i class="fa-solid text-white fa-volleyball"></i
-            ></a>
-            <a
-              routerLink="/season"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"
-              ><i class="fa-solid text-white fa-ranking-star"></i
-            ></a>
+            <a routerLink="/player"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"><i
+                class="fa-solid text-white fa-user-plus"></i></a>
+            <a routerLink="/team"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"><i
+                class="fa-solid text-white fa-people-group"></i></a>
+            <a routerLink="/match"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"><i
+                class="fa-solid text-white fa-volleyball"></i></a>
+            <a routerLink="/season"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"><i
+                class="fa-solid text-white fa-ranking-star"></i></a>
+            <a routerLink="/playerstoteams"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer">
+              <i class="fa-solid text-white fa-users-medical"></i></a>
           </div>
           <div class="py-6">
-            <a
-              href="#"
-              class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"
-              ><i class="fa-solid text-white fa-arrow-right-to-bracket"></i
-            ></a>
+            <a href="#"
+              class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 pointer"><i
+                class="fa-solid text-white fa-arrow-right-to-bracket"></i></a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </header>

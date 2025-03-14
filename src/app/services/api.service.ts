@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  readonly baseUrl = 'http://localhost:3000';
+  readonly baseUrl = 'http://localhost:5353';
 
   post(url: string, body: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}${url}`, body, {

@@ -7,6 +7,7 @@ import { SeasonComponent } from './components/season.component';
 import { NotfoundComponent } from './components/notfound.component';
 import { AuthComponent } from './components/auth.component';
 import { authGuard } from './guards/auth.guard';
+import { PlayersToTeamsComponent } from './components/playerstoteams.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,6 +30,11 @@ export const routes: Routes = [
   {
     path: 'season',
     component: SeasonComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'playerstoteams',
+    component: PlayersToTeamsComponent,
     canActivate: [authGuard],
   },
   {

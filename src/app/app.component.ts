@@ -11,9 +11,9 @@ import { firstAdminService } from './services/firstadmin.service';
   standalone: true,
   imports: [
     RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    HomeComponent,
+    // RouterLink,
+    // RouterLinkActive,
+    // HomeComponent,
     NavbarComponent,
   ],
   templateUrl: './app.component.html',
@@ -26,10 +26,10 @@ export class AppComponent {
     private authService: AuthService,
     private navbarService: NavBarService,
     private firstAdminService: firstAdminService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.firstAdminService.firstadmin().subscribe((data: any) => {});
+    this.firstAdminService.firstadmin().subscribe();
     this.authService.isAuthenticated().subscribe((data: any) => {
       this.navbarService.isLoggedIn.next(data != null ? true : false);
     });

@@ -1,94 +1,98 @@
-<form [formGroup]="playerForm" (submit)="submitPlayer()">
-  <div class="space-y-12">
-    <div class="border-b border-white/10 pb-12">
-      <h2 class="text-base font-semibold leading-7 text-white">
-        Création d'un joueur
-      </h2>
+<div>
+  @if (currentPlayerPage) {
+  <form [formGroup]="playerForm" (submit)="submitPlayer()">
+    <div class="space-y-12">
+      <div class="border-b border-white/10 pb-12 px-8">
+        <h2 class=" text-base font-semibold leading-7 text-white">
+          Création d'un joueur
+        </h2>
 
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div class="sm:col-span-3">
-          <label
-            for="first-name"
-            class="block text-sm font-medium leading-6 text-white"
-            >Prénom</label
-          >
-          <div class="mt-2">
-            <input
-              type="text"
-              name="first-name"
-              id="first-name"
-              autocomplete="given-name"
-              formControlName="firstName"
-              [ngClass]="
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="first-name" class="block text-sm font-medium leading-6 text-white">Prénom</label>
+            <div class="mt-2">
+              <input type="text" name="first-name" id="first-name" autocomplete="given-name" formControlName="firstName"
+                [ngClass]="
                 firstNameError && playerForm.get('firstName')?.invalid
                   ? 'invalid'
                   : ''
               "
-              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-            />
+                class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
+            </div>
           </div>
-        </div>
 
-        <div class="sm:col-span-3">
-          <label
-            for="last-name"
-            class="block text-sm font-medium leading-6 text-white"
-            >Nom</label
-          >
-          <div class="mt-2">
-            <input
-              type="text"
-              name="last-name"
-              id="last-name"
-              autocomplete="family-name"
-              formControlName="lastName"
-              [ngClass]="
+          <div class="sm:col-span-3">
+            <label for="last-name" class="block text-sm font-medium leading-6 text-white">Nom</label>
+            <div class="mt-2">
+              <input type="text" name="last-name" id="last-name" autocomplete="family-name" formControlName="lastName"
+                [ngClass]="
                 lastNameError && playerForm.get('lastName')?.invalid
                   ? 'invalid'
                   : ''
               "
-              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-            />
+                class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
+            </div>
           </div>
-        </div>
 
-        <div class="sm:col-span-3">
-          <label
-            for="role"
-            class="block text-sm font-medium leading-6 text-white"
-            >Role</label
-          >
-          <div class="mt-2">
-            <select
-              id="role"
-              name="role"
-              autocomplete="role"
-              formControlName="role"
-              [ngClass]="
+          <div class="sm:col-span-3">
+            <label for="role" class="block text-sm font-medium leading-6 text-white">Role</label>
+            <div class="mt-2">
+              <select id="role" name="role" autocomplete="role" formControlName="role" [ngClass]="
                 roleError && playerForm.get('role')?.invalid ? 'invalid' : ''
               "
-              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black"
-            >
-              <option [ngValue]="''" disabled selected>Choisir un rôle</option>
-              @for (role of rolesEnum; track role) {
-              <option [ngValue]="role.label">{{ role.name }}</option>
-              }
-            </select>
+                class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+                <option [ngValue]="''" disabled selected>Choisir un rôle</option>
+                @for (role of rolesEnum; track role) {
+                <option [ngValue]="role.label">{{ role.name }}</option>
+                }
+              </select>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="button" class="text-sm font-semibold leading-6 text-white">
-      Cancel
-    </button>
-    <button
-      type="submit"
-      class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-    >
-      Save
-    </button>
+    <div class="mt-6 flex items-center justify-end gap-x-6 px-8">
+      <button type="submit"
+        class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+        Créer
+      </button>
+    </div>
+  </form>
+  } @else {
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="mt-8 flow-root">
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead>
+              <tr>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white-900 sm:pl-0">Nom</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white-900">Prénom</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white-900">Role</th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr *ngFor="let player of players">
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white-900 sm:pl-0">
+                  {{player.lastname}}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-white-500">{{player.firstname}}</td>
+                <td ng-repeat="x in rolesEnum|filter" class="whitespace-nowrap px-3 py-4 text-sm text-white-500">
+                  {{(player.role | json) == (rolesEnum[0].label | json) ? "Joueur" : "Gardien" }}
+                </td>
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier<span class="sr-only">,
+                      {{player.lastname + " " + player.firstname}}</span></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
+  }
+</div>

@@ -16,9 +16,9 @@ export class AuthComponent {
     password: new FormControl(''),
   });
 
-  @Output() changed = new EventEmitter();
+  // @Output() changed = new EventEmitter();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   submitLogin() {
     this.authService
@@ -26,6 +26,6 @@ export class AuthComponent {
         this.loginForm.value.username ?? '',
         this.loginForm.value.password ?? ''
       )
-      .add(() => this.changed.emit());
+    // .add(() => this.changed.emit());
   }
 }

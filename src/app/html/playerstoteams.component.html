@@ -1,0 +1,75 @@
+<form [formGroup]="playerstoteamsForm" (submit)="submitPlayersToTeams()">
+  <div class="space-y-12">
+    <div class="border-b border-white/10 pb-12 px-8">
+      <h2 class="text-base font-semibold leading-7 text-white">
+        Ajout d'un joueur à une équipe
+      </h2>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="team_id" class="block text-sm font-medium leading-6 text-white">Choix d'équipe</label>
+          <div class="mt-2">
+            <select id="team_id" name="team_id" autocomplete="team" formControlName="team_id" [ngClass]="
+                teamError && playerstoteamsForm.get('team_id')?.value == 0
+                  ? 'invalid'
+                  : ''
+              "
+              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+              <option [ngValue]="0" disabled selected>
+                Choisir une équipe
+              </option>
+              @for (team of teams; track team) {
+              <option [ngValue]="team.id">{{ team.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="player_id" class="block text-sm font-medium leading-6 text-white">Choix d'un joueur</label>
+          <div class="mt-2">
+            <select id="player_id" name="player_id" autocomplete="player" formControlName="player_id" [ngClass]="
+                playerError && playerstoteamsForm.get('player_id')?.value == 0
+                  ? 'invalid'
+                  : ''
+              "
+              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+              <option [ngValue]="0" disabled selected>
+                Choisir un joueur
+              </option>
+              @for (player of players; track player) {
+              <option [ngValue]="player.id">{{ player.lastname + " " + player.firstname }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="season_id" class="block text-sm font-medium leading-6 text-white">Choix d'une saison</label>
+          <div class="mt-2">
+            <select id="season_id" name="season_id" autocomplete="season" formControlName="season_id" [ngClass]="
+                seasonError && playerstoteamsForm.get('season_id')?.value == 0
+                  ? 'invalid'
+                  : ''
+              "
+              class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+              <option [ngValue]="0" disabled selected>
+                Choisir une saison
+              </option>
+              @for (season of seasons; track season) {
+              <option [ngValue]="season.id">{{ season.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6 px-8">
+    <button type="submit"
+      class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+      Créer
+    </button>
+  </div>
+</form>
