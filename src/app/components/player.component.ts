@@ -9,12 +9,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { map } from 'rxjs';
+import { PaginatorIntl } from './paginator.component';
 
 @Component({
   selector: 'app-player',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, PaginatorIntl],
   templateUrl: '../html/player.component.html',
   styleUrl: '../css/player.component.css',
 })
@@ -24,6 +24,8 @@ export class PlayerComponent {
   firstNameError = false;
   lastNameError = false;
   roleError = false;
+  pageLength = 200;
+  valueEmittedFromChildComponent: any;
 
   playerForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -45,13 +47,16 @@ export class PlayerComponent {
     this.playerService.currentPlayerPage.subscribe((isPlayerPage) => {
       this.currentPlayerPage = isPlayerPage
       if (!this.currentPlayerPage) {
-        this.playerService.getAllPlayers().subscribe((data) => (this.players = data));
-        // this.players.forEach(element => {
-        //   element.role = this.rolesEnum.find(role=>role.label === element.role)?.name
-        // });
+        this.playerService.getAllPlayers(10, 0).subscribe((data) => (this.players = data.data, this.pageLength = data.count));
       }
     }
     );
+  }
+
+  paginatorEvent(valueEmitted: any) {
+    this.valueEmittedFromChildComponent = valueEmitted;
+
+    this.playerService.getAllPlayers(valueEmitted.pageSize, (valueEmitted.currentPage * valueEmitted.pageSize)).subscribe((data) => (this.players = data.data, this.pageLength = data.count));
   }
 
   submitPlayer() {

@@ -11,8 +11,8 @@ export class PlayerService {
   isPlayerPage = new BehaviorSubject<boolean>(false);
   currentPlayerPage = this.isPlayerPage.asObservable();
 
-  getAllPlayers() {
-    return this.apiService.get("/players");
+  getAllPlayers(limit: number, offset: number) {
+    return this.apiService.get('/players?limit=' + limit + '&offset=' + offset);
   }
 
   submitPlayer(firstName: string, lastName: string, role: string) {

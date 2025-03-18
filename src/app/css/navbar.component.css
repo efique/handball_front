@@ -9,3 +9,7 @@
   opacity: 0;
   transition: visibility 0.2s 0.7s, opacity 0.2s 0.7s linear;
 }
+
+.navbar {
+  background-color: #161215;
+}
