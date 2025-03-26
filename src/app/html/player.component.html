@@ -84,8 +84,13 @@
                   {{(player.role | json) == (rolesEnum[0].label | json) ? "Joueur" : "Gardien" }}
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier<span class="sr-only">,
+                  <a href="#" class="edit text-indigo-600 hover:text-indigo-900"><i
+                      class="fa-solid fa-pen-to-square"></i><span class="sr-only">,
                       {{player.lastname + " " + player.firstname}}</span></a>
+                  <a href="#" class="delete hover:text-indigo-900"><i class="fa-solid fa-trash-can"></i><span
+                      class="sr-only">,
+                      {{player.lastname + " " + player.firstname}}</span></a>
+
                 </td>
               </tr>
             </tbody>
